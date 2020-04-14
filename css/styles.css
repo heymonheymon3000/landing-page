@@ -91,7 +91,6 @@ section {
 .link__active {
     background: #333;
     color: #fff !important;
-    transition: ease 0.3s all;
 }
 
 /* Header Styles */
