@@ -7,7 +7,7 @@
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
 */
-@import "./navbar.css";
+
 
 /* ---- Base Rules ---- */
 body {
@@ -88,6 +88,12 @@ section {
     transition: ease 0.3s all;
 }
 
+.link__active {
+    background: #333;
+    color: #fff !important;
+    transition: ease 0.3s all;
+}
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -107,7 +113,6 @@ section {
 .page__footer p{
     color: #fff;
 }
-
 
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
@@ -189,6 +194,10 @@ section:nth-of-type(3n + 1) .landing__container::after {
     transition: ease 0.5s all;
 }
 
+.navbar_list_container {
+    display: flex;
+    justify-content: flex-end;
+}
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
@@ -220,4 +229,44 @@ section.your-active-class .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
+}
+
+
+@media(max-width:599px) {
+    h1 {
+        font-size: 4em;
+        margin: 2em 4rem 1em;
+    }
+    h2 {
+        border-bottom: 1px solid #cc1;
+        font-family: 'Oxygen', Sans-Serif;
+        font-size: 2em;
+        color: #fff;
+    }
+}
+
+@media(min-width: 600px) and (max-width:900px) {
+    h1 {
+        font-size: 7em;
+        margin: 2em 4rem 1em;
+    }
+    h2 {
+        border-bottom: 1px solid #cc1;
+        font-family: 'Oxygen', Sans-Serif;
+        font-size: 3em;
+        color: #fff;
+    }
+}
+
+@media(min-width:901px) {
+    h1 {
+        font-size: 10em;
+        margin: 2em 4rem 1em;
+    }
+    h2 {
+        border-bottom: 1px solid #cc1;
+        font-family: 'Oxygen', Sans-Serif;
+        font-size: 5em;
+        color: #fff;
+    }
 }
