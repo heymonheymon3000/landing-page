@@ -73,7 +73,6 @@ function buildNav() {
 
 // Build menu 
 function buildListItem(id, sectionTitle) {
-    console.log("id => " + id);
     let selectionListItem = document.createElement('li');
     selectionListItem.id = 'nav-'+id;
     selectionListItem.className = 'menu__link';
