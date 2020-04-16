@@ -193,7 +193,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
     transition: ease 0.5s all;
 }
 
-.navbar_list_container {
+#navbar__list {
     display: flex;
     justify-content: flex-end;
 }
@@ -241,6 +241,12 @@ section.your-active-class .landing__container::after {
         font-family: 'Oxygen', Sans-Serif;
         font-size: 2em;
         color: #fff;
+    }
+    #navbar__list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-items: start;
     }
 }
 
