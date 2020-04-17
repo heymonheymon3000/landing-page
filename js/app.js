@@ -17,7 +17,7 @@
  * Define Global Variables
  * 
 */
-
+let selectedIndex = 0;
 /**
  * End Global Variables
  * Start Helper Functions
@@ -39,7 +39,7 @@ const sectionCoord = (section) => {
 }
 
 const getSectionCoords = () => {
-  const sections = document.querySelectorAll("section");
+  const sections = document.querySelectorAll('section');
   const sectionTop = [];
 
   for (section of sections){
@@ -52,16 +52,18 @@ const scrollEventHandler = ()=> {
   const sectionCoords = getSectionCoords();
 
   for(let i = 0; i < sectionCoords.length; i++){
-    const sections = document.querySelectorAll("section");
-    const navItems = document.querySelectorAll(".menu__link");
+    const sections = document.querySelectorAll('section');
+    const navItems = document.querySelectorAll('.menu__link');
 
     if(window.scrollY >= sectionCoords[i] && 
       !(window.scrollY > sectionCoords[i+1])) {
-      sections[i].classList.add("your-active-class");
-      navItems[i].classList.add("link__active");
+      sections[i].classList.add('your-active-class');
+      navItems[i].classList.add('link__active');
+      // cache selectedIndex
+      selectedIndex = i;
     } else {
-      sections[i].classList.remove("your-active-class");
-      navItems[i].classList.remove("link__active"); 
+      sections[i].classList.remove('your-active-class');
+      navItems[i].classList.remove('link__active'); 
     }
   }
 }
@@ -87,33 +89,37 @@ const scrollSectionActiveEvent = ()=> {
   window.addEventListener('scroll', scrollEventHandler);
 }
 
-// Scroll to anchor ID using scrollTO event
+// Scroll to anchor ID using scrollTO event   
 const scrollToSectionOnClick = ()=> {
-  const sections = document.querySelectorAll("section");
-  const navItems = document.querySelectorAll(".menu__link");
+  const sections = document.querySelectorAll('section');
+  const navItems = document.querySelectorAll('.menu__link');
 
   sections.forEach(function(section, index) {
     if(0 == index) {
+      // scroll to the section
       section.scrollIntoView ({behavior: 'smooth'});
+      // make the nav item active
       navItems[index].classList.add('link__active');
+      // cache selectedIndex
+      selectedIndex = 0;
     }
 
-    navItems[index].addEventListener('click', function() {
+    navItems[index].addEventListener('click', function(evt) {
       // remove scroll event handler 
-      window.removeEventListener("scroll", scrollEventHandler);
-
-      // set the clicked navItem to active and all others to inactive
-      for(let navItem of navItems) {
-        navItem.classList.remove('link__active');
-      }
-      this.classList.add('link__active');
-
+      window.removeEventListener('scroll', scrollEventHandler);   
+      // make this nav item not active... no need to make the selected nav item active 
+      // because once the scroll event is add the selected nav item will be make active.
+      navItems[selectedIndex].classList.remove('link__active');
+      
       // scroll to the selected section
       section.scrollIntoView ({behavior: 'smooth'});
 
-      // add scroll event handler back after 900ms
+      // cache selectedIndex
+      selectedIndex = parseInt(this.dataset.link.split(" ")[1]) - 1;
+
+      // add scroll event handler back after 1 sec
       setTimeout(function() {
-        window.addEventListener("scroll", scrollEventHandler);
+        window.addEventListener('scroll', scrollEventHandler);
       }, 900);
     });
   });
