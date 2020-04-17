@@ -110,7 +110,8 @@ const scrollToSectionOnClick = ()=> {
       // make this nav item not active... no need to make the selected nav item active 
       // because once the scroll event is add the selected nav item will be make active.
       navItems[selectedIndex].classList.remove('link__active');
-      
+      this.classList.add('link__active');
+
       // scroll to the selected section
       section.scrollIntoView ({behavior: 'smooth'});
 
