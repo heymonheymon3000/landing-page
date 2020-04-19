@@ -17,7 +17,7 @@
  * Define Global Variables
  * 
 */
-let selectedIndex = 0;
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -28,6 +28,7 @@ const createNavItem = (section)=> {
   navItem.innerText = `${section.dataset.nav}`;
   navItem.classList.add('menu__link');
   navItem.setAttribute('data-link', `${section.dataset.nav}`);
+
   return navItem;
 }
 
@@ -35,6 +36,7 @@ const sectionCoord = (section) => {
   let bodyTop = document.body.getBoundingClientRect().top;
   let sectionTop = section.getBoundingClientRect().top;
   let secCoord = sectionTop - bodyTop;
+
   return secCoord; 
 }
 
@@ -45,6 +47,7 @@ const getSectionCoords = () => {
   for (section of sections){
     sectionTop.push(sectionCoord(section));
   }
+
   return sectionTop;
 }
 
@@ -59,14 +62,13 @@ const scrollEventHandler = ()=> {
       !(window.scrollY > sectionCoords[i+1])) {
       sections[i].classList.add('your-active-class');
       navItems[i].classList.add('link__active');
-      // cache selectedIndex
-      selectedIndex = i;
     } else {
       sections[i].classList.remove('your-active-class');
       navItems[i].classList.remove('link__active'); 
     }
   }
 }
+
 
 /**
  * End Helper Functions
@@ -98,30 +100,15 @@ const scrollToSectionOnClick = ()=> {
     if(0 == index) {
       // scroll to the section
       section.scrollIntoView ({behavior: 'smooth'});
-      // make the nav item active
+      // window.scrollTo(0, sectionCoord(section)+1);
+      // make the first nav item active
       navItems[index].classList.add('link__active');
-      // cache selectedIndex
-      selectedIndex = 0;
     }
 
     navItems[index].addEventListener('click', function(evt) {
-      // remove scroll event handler 
-      window.removeEventListener('scroll', scrollEventHandler);   
-      // make this nav item not active... no need to make the selected nav item active 
-      // because once the scroll event is add the selected nav item will be make active.
-      navItems[selectedIndex].classList.remove('link__active');
-      this.classList.add('link__active');
-
       // scroll to the selected section
       section.scrollIntoView ({behavior: 'smooth'});
-
-      // cache selectedIndex
-      selectedIndex = parseInt(this.dataset.link.split(" ")[1]) - 1;
-
-      // add scroll event handler back after 1 sec
-      setTimeout(function() {
-        window.addEventListener('scroll', scrollEventHandler);
-      }, 900);
+      // window.scrollTo(0, sectionCoord(section)+1);
     });
   });
 }
